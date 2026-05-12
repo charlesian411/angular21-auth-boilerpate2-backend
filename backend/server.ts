@@ -16,7 +16,13 @@ app.use(cookieParser());
 
 // allow cors requests from specific origin
 const corsOrigin = process.env.CORS_ORIGIN || true; 
-app.use(cors({ origin: corsOrigin, credentials: true }));
+app.use(cors({ 
+    origin: corsOrigin, 
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+}));
+app.options('*', cors()); // Handle preflight requests
 
 // api routes
 app.use('/api/accounts', accountsController); // Matches your frontend
